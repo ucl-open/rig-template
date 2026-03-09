@@ -27,7 +27,7 @@ def main():
         cs_namespace=NAMESPACE_PREFIX,
         json_schema_output_dir=SCHEMA_ROOT,
         cs_output_dir=EXTENSIONS_ROOT,
-        cs_serializer=[BonsaiSgenSerializers.JSON],
+        cs_serializer=[BonsaiSgenSerializers.JSON, BonsaiSgenSerializers.YAML],
     )
 
 
