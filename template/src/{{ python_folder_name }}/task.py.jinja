@@ -2,13 +2,13 @@
 from typing import Literal
 from pydantic import Field
 
-from swc.aeon.io import reader
-from swc.aeon.schema import BaseSchema, data_reader
+from ucl_open.core.base import BaseSchema
+from ucl_open.core.task import TaskParameters
 
 from {{ python_folder_name }} import __semver__
 
-# TODO - should inherit from some TaskParameters base class rather than BaseSchema
-class {{ python_class_prefix }}TaskParameters(BaseSchema):
+
+class {{ python_class_prefix }}TaskParameters(TaskParameters):
     ...
 
 
