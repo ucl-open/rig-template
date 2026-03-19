@@ -17,7 +17,13 @@ if (Test-Path -Path ./.venv) {
 &uv venv
 .\.venv\Scripts\Activate.ps1
 Write-Output "Synchronizing environment..."
-&uv sync 
+&uv sync
+
+Write-Output "Creating sgen output folder"
+mkdir src\DataSchemas
+
+Write-Output "Generate placeholder extension classes..."
+&uv run .\src\{{ python_folder_name }}\regenerate.py
 
 Write-Output "Creating a Bonsai environment and installing packages..."
 if (Test-Path -Path "bonsai") {
@@ -33,6 +39,3 @@ Set-Location ..
 
 Write-Output "Creating bonsai extensions folder..."
 mkdir src\Extensions
-
-Write-Output "Creating sgen output folder"
-mkdir src\DataSchemas

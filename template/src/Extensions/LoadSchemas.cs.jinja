@@ -5,7 +5,7 @@ using System.Reactive.Linq;
 using Bonsai;
 using {{ dotnet_full_name }}DataSchema;
 
-public class LoadSchemas : Source<Tuple<UclOpenSession, {{ dotnet_full_name }}Rig, {{ dotnet_full_name }}TaskLogic>>
+public class LoadSchemas : Source<Tuple<Experiment, {{ dotnet_full_name }}Rig, {{ dotnet_full_name }}TaskLogic>>
 {
     [Description("The relative or absolute path of the session file to open for reading.")]
     [Editor("Bonsai.Design.OpenFileNameEditor, Bonsai.Design", DesignTypes.UITypeEditor)]
@@ -19,13 +19,13 @@ public class LoadSchemas : Source<Tuple<UclOpenSession, {{ dotnet_full_name }}Ri
     [Editor("Bonsai.Design.OpenFileNameEditor, Bonsai.Design", DesignTypes.UITypeEditor)]
     public string TaskLogicSettingsPath {get; set;}
 
-    public override IObservable<Tuple<UclOpenSession, {{ dotnet_full_name }}Rig, {{ dotnet_full_name }}TaskLogic>> Generate()
+    public override IObservable<Tuple<Experiment, {{ dotnet_full_name }}Rig, {{ dotnet_full_name }}TaskLogic>> Generate()
     {
         string sessionSettingsRaw = File.ReadAllText(SessionSettingsPath);
         string rigSettingsRaw = File.ReadAllText(RigSettingsPath);
         string taskLogicSettingsRaw = File.ReadAllText(TaskLogicSettingsPath);
 
-        var sessionSource = Observable.Return(Newtonsoft.Json.JsonConvert.DeserializeObject<UclOpenSession>(sessionSettingsRaw));
+        var sessionSource = Observable.Return(Newtonsoft.Json.JsonConvert.DeserializeObject<Experiment>(sessionSettingsRaw));
         var rigSource = Observable.Return(Newtonsoft.Json.JsonConvert.DeserializeObject<{{ dotnet_full_name }}Rig>(rigSettingsRaw));
         var taskLogicSource = Observable.Return(Newtonsoft.Json.JsonConvert.DeserializeObject<{{ dotnet_full_name }}TaskLogic>(taskLogicSettingsRaw));
 
