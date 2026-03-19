@@ -52,13 +52,12 @@ dotnet_name:
   when: false
 
 dotnet_full_name:
-  # Eg: Aind.Behavior.NewProject
-  default: '{{ (prefix | replace("-", " ") | title | replace(" ", ".")) }}.{{ (dotnet_name) }}'
+  # Eg: UclOpenNewProject
+  default: '{{ (prefix | replace("-", " ") | title | replace(" ", "")) }}{{ (dotnet_name) }}'
   help: Internal .NET module name (auto-generated)
   when: false
 
 python_class_prefix:
-  # Eg: AindBehaviorNewProject
   default: '{{ dotnet_full_name | replace(".", "") }}'
   help: Internal Python class prefix (auto-generated)
   type: str
