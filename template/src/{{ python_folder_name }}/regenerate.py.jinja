@@ -17,6 +17,7 @@ def main():
     models = [
         {{ python_folder_name }}.task.{{ python_class_prefix }}TaskLogic,
         {{ python_folder_name }}.rig.{{ python_class_prefix }}Rig,
+        Experiment
     ]
     model = pydantic.RootModel[Union[tuple(models)]]
 

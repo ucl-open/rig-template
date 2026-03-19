@@ -1,0 +1,37 @@
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Reactive.Linq;
+using Bonsai;
+using {{ dotnet_full_name }}DataSchema;
+
+public class LoadSchemas : Source<Tuple<Experiment, {{ dotnet_full_name }}Rig, {{ dotnet_full_name }}TaskLogic>>
+{
+    [Description("The relative or absolute path of the session file to open for reading.")]
+    [Editor("Bonsai.Design.OpenFileNameEditor, Bonsai.Design", DesignTypes.UITypeEditor)]
+    public string SessionSettingsPath {get; set;}
+
+    [Description("The relative or absolute path of the rig file to open for reading.")]
+    [Editor("Bonsai.Design.OpenFileNameEditor, Bonsai.Design", DesignTypes.UITypeEditor)]
+    public string RigSettingsPath {get; set;}
+
+    [Description("The relative or absolute path of the task file to open for reading.")]
+    [Editor("Bonsai.Design.OpenFileNameEditor, Bonsai.Design", DesignTypes.UITypeEditor)]
+    public string TaskLogicSettingsPath {get; set;}
+
+    public override IObservable<Tuple<Experiment, {{ dotnet_full_name }}Rig, {{ dotnet_full_name }}TaskLogic>> Generate()
+    {
+        string sessionSettingsRaw = File.ReadAllText(SessionSettingsPath);
+        string rigSettingsRaw = File.ReadAllText(RigSettingsPath);
+        string taskLogicSettingsRaw = File.ReadAllText(TaskLogicSettingsPath);
+
+        var sessionSource = Observable.Return(Newtonsoft.Json.JsonConvert.DeserializeObject<Experiment>(sessionSettingsRaw));
+        var rigSource = Observable.Return(Newtonsoft.Json.JsonConvert.DeserializeObject<{{ dotnet_full_name }}Rig>(rigSettingsRaw));
+        var taskLogicSource = Observable.Return(Newtonsoft.Json.JsonConvert.DeserializeObject<{{ dotnet_full_name }}TaskLogic>(taskLogicSettingsRaw));
+
+        return sessionSource.Zip(rigSource, taskLogicSource, (s1, s2, s3) =>
+        {
+            return Tuple.Create(s1, s2, s3);
+        });
+    }
+}
