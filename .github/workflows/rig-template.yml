@@ -50,4 +50,4 @@ jobs:
             - name: Generate copier template
               run: |
                 git init /tmp/example
-                uv copier copy -l --vcs-ref=HEAD . /tmp/example
+                uvx copier copy -l --vcs-ref=HEAD . /tmp/example
