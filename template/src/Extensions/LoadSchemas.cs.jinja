@@ -5,7 +5,7 @@ using System.Reactive.Linq;
 using Bonsai;
 using {{ dotnet_full_name }}DataSchema;
 
-public class LoadSchemas : Source<Tuple<UclOpenSession, UclOpenHfVisualRig, UclOpenHfVisualTaskLogic>>
+public class LoadSchemas : Source<Tuple<UclOpenSession, {{ dotnet_full_name }}Rig, {{ dotnet_full_name }}TaskLogic>>
 {
     [Description("The relative or absolute path of the session file to open for reading.")]
     [Editor("Bonsai.Design.OpenFileNameEditor, Bonsai.Design", DesignTypes.UITypeEditor)]
