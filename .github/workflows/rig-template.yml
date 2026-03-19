@@ -45,7 +45,7 @@ jobs:
 
             # -------------------------------------------------------- Configure build
             - name: Install the project
-              run: uv sync --locked --all-extras --dev
+              run: uv sync --all-extras --dev
 
             - name: Generate copier template
               run: |
