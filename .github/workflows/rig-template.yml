@@ -36,3 +36,18 @@ jobs:
         # -------------------------------------------------------- Checkout
             - name: Checkout
               uses: actions/checkout@v5
+
+                    # -------------------------------------------------------- Set up tools
+            - name: Install uv and set Python version
+              uses: astral-sh/setup-uv@v7
+              with:
+                python-version: ${{ matrix.python-version }}
+
+            # -------------------------------------------------------- Configure build
+            - name: Install the project
+              run: uv sync --locked --all-extras --dev
+
+            - name: Generate copier template
+              run: |
+                git init /tmp/example
+                uv copier copy -l --vcs-ref=HEAD . /tmp/example
